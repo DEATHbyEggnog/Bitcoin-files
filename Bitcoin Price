@@ -1,0 +1,26 @@
+#Ashley Ferguson
+#Program to find USD and CAD bitcoin current price
+
+import requests
+
+# CoinGecko API endpoint for Bitcoin price in USD
+api_url_usd = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+
+# CoinGecko API endpoint for Bitcoin price in CAD
+api_url_cad = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=cad'
+
+# Fetch Bitcoin price in USD from CoinGecko API
+response_usd = requests.get(api_url_usd)
+data_usd = response_usd.json()
+bitcoin_price_usd = data_usd['bitcoin']['usd']
+
+# Fetch Bitcoin price in CAD from CoinGecko API
+try:
+    response_cad = requests.get(api_url_cad)
+    data_cad = response_cad.json()
+    bitcoin_price_cad = data_cad['bitcoin']['cad']
+except KeyError:
+    bitcoin_price_cad = "N/A"
+
+print(f"Current Bitcoin price in USD: {bitcoin_price_usd} USD")
+print(f"Current Bitcoin price in CAD: {bitcoin_price_cad} CAD")
